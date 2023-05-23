@@ -1,0 +1,74 @@
+@use '../node_modules/tailwindcss/base.css';
+@use '../node_modules/tailwindcss/components.css';
+@use '../node_modules/tailwindcss/utilities.css';
+
+@use '../node_modules/ng-zorro-antd/style/index.min.css' as *;
+@use '../node_modules/ng-zorro-antd/slider/style/index.min.css' as slide;
+@use '../node_modules/ng-zorro-antd/skeleton/style/index.min.css' as skeleton;
+@use '../node_modules/ng-zorro-antd/switch/style/index.min.css' as switch;
+@use '../node_modules/ng-zorro-antd/modal/style/index.min.css' as modal;
+@use '../node_modules/ng-zorro-antd/button/style/index.min.css' as button;
+@use '../node_modules/ng-zorro-antd/tooltip/style/index.min.css' as tooltip;
+@use '../node_modules/ng-zorro-antd/dropdown/style/index.min.css' as dropdown;
+
+/* Global reset */
+/* Reset Global */
+html,
+body,
+div,
+span,
+app-root,
+app-root *,
+app-root :after,
+app-root :before,
+app-root::after,
+app-root::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Remove decoração de link padrão */
+a {
+  text-decoration: none;
+}
+
+/* Remove estilo de lista padrão */
+ul,
+ol {
+  list-style: none;
+}
+
+/* Remover margens e preenchimentos padrão para elementos de lista */
+li {
+  margin: 0;
+  padding: 0;
+}
+
+/* Remover estilos de botão padrão */
+button {
+  cursor: pointer;
+}
+
+/* Defina a fonte padrão para evitar problemas de renderização do tipo de fonte */
+body {
+  font-family: Arial, sans-serif;
+}
+
+
+
+html, body { height: 100%; }
+body { 
+  margin: 0; 
+  font-family: Roboto, "Helvetica Neue", sans-serif; 
+  min-width: 600px;
+  line-height: 20px;
+  letter-spacing: 0.015em;
+  color: #b3b3b3;
+  @apply h-full w-full absolute overflow-hidden flex flex-col;
+}
+
+ .tracks-container .ant-skeleton-paragraph > li {
+  height: 24px !important;
+}
+
