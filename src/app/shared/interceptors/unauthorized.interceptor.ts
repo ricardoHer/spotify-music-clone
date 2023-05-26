@@ -1,8 +1,8 @@
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { UIStore } from "../store/ui.store";
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Provider } from "@angular/core";
+import { UIStore } from '../store/auth';
 
 export class UnauthorizedInterceptor implements HttpInterceptor {
 

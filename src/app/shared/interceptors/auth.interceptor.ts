@@ -1,6 +1,6 @@
 import { HTTP_INTERCEPTORS, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
 import { Injectable, Provider } from "@angular/core";
-import { AuthStore } from "../store/auth.store";
+import { AuthStore } from "../store/auth/auth.store";
 import { Observable, take } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 

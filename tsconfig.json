@@ -32,7 +32,7 @@
       "node_modules/@types"
     ],
     "types": [
-      "spotify-api"
+      "spotify-api",
     ]
   },
   "angularCompilerOptions": {

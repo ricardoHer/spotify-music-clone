@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AuthStore } from 'src/app/shared/store/auth.store';
+import { AuthStore } from 'src/app/shared/store/auth/auth.store';
 
 @Component({
   selector: 'app-user-dropdown',

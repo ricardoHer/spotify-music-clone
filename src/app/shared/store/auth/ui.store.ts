@@ -1,9 +1,9 @@
 import { Injectable } from "@angular/core";
-import { NavItem } from "../models/nav-itesm";
 import { ComponentStore } from "@ngrx/component-store";
 import { NzModalService } from "ng-zorro-antd/modal";
 import { filter, switchMapTo, tap } from "rxjs/operators";
 import { UnauthorizedModalComponent } from "src/app/modules/shell/unauthorized-modal/src/unauthorized-modal/unauthorized-modal.component";
+import { NavItem } from "../../models/nav-itesm";
 
 interface UIState {
     navItems: NavItem[];

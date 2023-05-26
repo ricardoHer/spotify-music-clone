@@ -1,4 +1,4 @@
-import { RouterUtil } from './router-utils';
+import { RouterUtil } from './router-util';
 
 export class RouteUtil {
   static getAlbumRouteUrl(albumId: string) {

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NzModalRef } from 'ng-zorro-antd/modal';
-import { AuthStore } from 'src/app/shared/store/auth.store';
+import { AuthStore } from 'src/app/shared/store/auth/auth.store';
 
 @Component({
   selector: 'app-unauthorized-modal',

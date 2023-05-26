@@ -5,8 +5,10 @@
 import { Injectable } from "@angular/core";
 import { GenericState, SpotifyApiAudioAnalysisResponse, SpotifyTrackExtended, StringUtil } from "../models";
 import { ComponentStore } from "@ngrx/component-store";
-import { filter, map, Observable } from 'rxjs';
-import { RouteUtil } from "../models/route-util";
+import { filter, map, Observable, EMPTY } from 'rxjs';
+import { RouteUtil } from "../utils/route-util";
+import { TrackApiService } from ".";
+import { tap, withLatestFrom, switchMap, catchError } from 'rxjs/operators';
 
 interface PlaybackState extends GenericState<Spotify.PlaybackState> {
     playser: Spotify.Player;
@@ -16,8 +18,6 @@ interface PlaybackState extends GenericState<Spotify.PlaybackState> {
     trackAnalysisId: string;
     isAnalysisLoading: boolean
 }
-
-
 
 @Injectable({ providedIn: 'root' })
 export class PlaybackStore extends ComponentStore<PlaybackState> {
@@ -61,13 +61,64 @@ export class PlaybackStore extends ComponentStore<PlaybackState> {
             return trackExtended;
         })
     );
+
     readonly position$ = this.playback$.pipe(map((data) => data?.position));
+
     readonly volume$ = this.select((x) => x.volume);
+
     readonly isPlaying$ = this.playback$.pipe(
         map((data) => {
             if (!data) {
                 return false
             }
             return !data.paused;
-        }))
+        }));
+
+    readonly analysisInfo$ = this.select((s) => ({
+        trackAnalysisId: s.trackAnalysisId,
+        isAnalysisLoading: s.isAnalysisLoading
+    }));
+
+    readonly segment$ = this.select((s) => ({
+        isPlaying: s.data ? !s.data.paused : false,
+        position: s.data?.position,
+        segments: s.analysis?.segments
+    })).pipe(filter((s) => !!s.segments));
+
+    readonly player = () => this.get().playser;
+
+    readonly loadTrackAnalytics = this.effect<{ trackId: string }>((params$) => 
+        params$.pipe(
+            withLatestFrom(this.analysisInfo$),
+            filter(([{trackId}, { isAnalysisLoading, trackAnalysisId }]) => !isAnalysisLoading && trackId !== trackAnalysisId),
+            tap(() => {this.patchState({ isAnalysisLoading: true })}),
+            switchMap(([{ trackId }]) => this.trackApi.getAudioAnalisys(trackId).pipe(
+                map((analysis) => ({
+                    analysis,
+                    trackId
+                })),
+                catchError(() => {
+                    this.patchState({ isAnalysisLoading: false });
+                    return EMPTY;
+                })
+            )),
+            map(({ analysis, trackId }) => {
+                analysis.segments = analysis.segments.map((segment) => ({
+                    ...segment,
+                    start: segment.start * 1000,
+                    duration: segment.duration * 1000
+                }));
+
+                this.patchState({
+                    analysis: analysis,
+                    trackAnalysisId: trackId,
+                    isAnalysisLoading: false
+                })
+            })
+        )
+    );        
+
+    constructor(private trackApi: TrackApiService) {
+        super({} as PlaybackState);
+    }
 }

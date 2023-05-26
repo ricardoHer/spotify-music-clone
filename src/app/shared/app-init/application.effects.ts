@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { AuthStore } from "../store/auth.store";
+import { AuthStore } from "../store/auth/auth.store";
 import { PlaybackService } from "../playback";
 import { AppInit } from "./app-initiation";
 import { tap } from "rxjs";

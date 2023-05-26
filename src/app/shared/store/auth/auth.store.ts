@@ -4,12 +4,12 @@
 import { Injectable } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ComponentStore } from '@ngrx/component-store';
-import { SpotifyApiService } from "../services/spotify-api";
+import { SpotifyApiService } from "../../services/spotify-api";
 import { Observable } from 'rxjs';
 import { filter, map, switchMapTo, tap, catchError } from 'rxjs/operators';
-import { SpotifyAuthorize } from "../services/auth";
+import { SpotifyAuthorize } from "../../services/auth";
 import { Store } from "@ngrx/store";
-import { AuthReady } from "../app-init";
+import { AuthReady } from "../../app-init";
 
 
 export interface AuthState extends SpotifyApi.CurrentUsersProfileResponse {
